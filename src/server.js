@@ -1,16 +1,17 @@
-//importando o express
 require("express-async-errors");
 const express = require("express");
 
 const database = require("./database/sqlite");
 
 const appError = require("./utils/appError");
+const uploadConfig = require("./configs/upload");
 
 const routes = require("./routes");
 
-//inicializando o express
 const app = express();
 app.use(express.json());
+
+app.use("/files", express.static(uploadConfig.UPLOADS_FOLDER));
 
 app.use(routes);
 
@@ -33,6 +34,5 @@ app.use((error, request, response, next) => {
   })
 });
 
-//verificando API
 const PORT = 3333;
 app.listen(PORT, () => console.log(`Server is running on Port ${PORT}`));
