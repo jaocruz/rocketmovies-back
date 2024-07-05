@@ -1,14 +1,14 @@
 const knex = require("../database/knex");
 
-class tagsController{
+class markersController{
   async index(request, response){
     const user_id = request.user.id;
 
-    const tags = await knex("tags")
+    const markers = await knex("markers")
     .where({user_id})
 
-    return response.json(tags)
+    return response.json(markers)
   }
 }
 
-module.exports = tagsController; 
+module.exports = markersController; 
