@@ -15,7 +15,7 @@ class moviesController{
 
     const markersInsert = markers.map(name => {
       return{
-        note_id,
+        movie_id,
         user_id,
         name
       }
@@ -31,7 +31,7 @@ class moviesController{
     const { id } = request.params;
 
     const movie = await knex("movies").where({id}).first();
-    const markers = await knex("markers").where({note_id: id}).orderBy("name");
+    const markers = await knex("markers").where({movie_id: id}).orderBy("name");
 
     return response.json({
       ...movie, markers
@@ -68,7 +68,7 @@ class moviesController{
       .innerJoin("movies", "movies.id", "markers.movie_id")
 
     }else{
-      notes = await knex("movies")
+      movies = await knex("movies")
         .where({title, user_id})
         .whereLike("title", `%${title}%`)
         .orderBy("title");
