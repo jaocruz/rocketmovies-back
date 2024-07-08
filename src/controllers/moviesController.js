@@ -69,8 +69,7 @@ class moviesController{
 
     }else{
       movies = await knex("movies")
-        .where({title, user_id})
-        .whereLike("title", `%${title}%`)
+        .where({ user_id})
         .orderBy("title");
     }
 
